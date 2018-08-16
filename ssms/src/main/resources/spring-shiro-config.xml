@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 配置shiro的核心securityManager -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="cacheManager" ref="cacheManager"/>
+		<!--<property name="sessionMode" value="native"/>-->
+		<!--<property name="realm" ref="jdbcRealm"/>-->
+	</bean>
+
+	<!-- 配置ehcache缓存 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+	</bean>
+
+	<!-- 配置shiro的重要的元素Reaml(验证的数据源)，可自定义 -->
+<!--	<bean id="jdbcRealm" class="org.apache.shiro.samples.spring.realm.SaltAwareJdbcRealm">
+	</bean>-->
+
+	<!-- 配置shiro中bean生命周期管理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+	<!-- AOP式方法级权限检查 -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		  depends-on="lifecycleBeanPostProcessor"/>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager"/>
+	</bean>
+
+	<!-- shiro过滤器配置，与web.xml中shiro过滤器同名 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager"/>
+		<!-- 需要登录成功后跳转的页面 -->
+		<property name="loginUrl" value="login.jsp"/>
+		<!-- 登录成功后跳转的页面 -->
+		<property name="successUrl" value="/s/index"/>
+		<!-- 访问未授权页面跳转的页面 -->
+		<property name="unauthorizedUrl" value="unauthor.jsp"/>
+		<property name="filterChainDefinitions">
+			<!-- 静态资源需要设置为anon，否则找不到 -->
+			<value>
+				/statics/** = anon
+				/login.jsp = anon
+				/welcom.jsp = authc
+			</value>
+		</property>
+	</bean>
+</beans>
