@@ -7,5 +7,5 @@
 	
 	<import resource="classpath:spring-mvc-config.xml"/>
 	<import resource="classpath:spring-jdbc-config.xml"/>
-	<import resource="classpath:spring-shiro.xml"/>
+	<import resource="classpath:spring-shiro-config.xml"/>
 </beans>

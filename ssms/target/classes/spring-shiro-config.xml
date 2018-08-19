@@ -11,7 +11,6 @@
 	<!--	<property name="realm" ref="jdbcRealm"/>-->
 	<!--	<property name="realm" ref="encrRealm"/>-->
 	<!--	<property name="realm" ref="saltRealm"/>-->
-		<!-- 认证规则匹配器 -->
 		<property name="authenticator" ref="authenticator"></property>
 		<!-- 配置多Realm -->
 	<!--	<property name="realms">
@@ -20,7 +19,6 @@
 					<ref bean="sha1Realm"/>
 				</list>
 		   </property>-->
-		<!-- 权限认证Realm -->
 		<property name="realm" ref="authRealm"/>
 
 		<!-- 配置记住我的时长 -->

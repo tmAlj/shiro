@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>首页</title>
+    <title>登录</title>
     <link rel="stylesheet" type="text/css" href="statics/boostrap/css/bootstrap.css"/>
     <style>
         .tm-container{
@@ -19,7 +19,7 @@
 </head>
 <body>
     <div class="tm-container">
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" action="shiro/login" method="post">
             <div class="form-group">
                 <label for="firstname" class="col-sm-2 control-label">用户姓名</label>
                 <div class="col-sm-10">
@@ -36,14 +36,14 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox">请记住我
+                            <input type="checkbox" name="remember" class="remember">请记住我
                         </label>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-danger">登录</button>
+                    <input type="submit" class="btn btn-danger" value="登录"></input>
                 </div>
             </div>
         </form>
